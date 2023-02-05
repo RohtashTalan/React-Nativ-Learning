@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.randombgcolor02"
+    namespace "com.awesome01"
     defaultConfig {
-        applicationId "com.randombgcolor02"
+        applicationId "com.awesome01"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

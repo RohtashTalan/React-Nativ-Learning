@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   SafeAreaView,
   View,
   Text,
   useColorScheme,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 
 } from 'react-native'
 
 const App = () =>{
   const isDarkMode = useColorScheme() === 'dark';
 
+  const [randomColor, setRandomColor] = useState('rgb(32, 0, 126)');
+
+  const changeBG = () =>{
+    let color = `rgb(
+      ${Math.floor(Math.random() * 256)},
+      ${Math.floor(Math.random() * 256)},
+      ${Math.floor(Math.random() * 256)}
+    )`;
+
+    setRandomColor(color);
+
+  }
+
   return(
-      <View style={styles.container}>
+      <View style={[styles.container, {backgroundColor: randomColor}]}>
+        <TouchableOpacity onPress={changeBG}>
         <Text style={isDarkMode ? styles.whiteText:styles.darkText}>
-          Random Color App
-        </Text>
+          Tap Me
+        </Text></TouchableOpacity>
       </View>
   )
 }
@@ -28,16 +43,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
   whiteText: {
     color:'#ffffff',
-    fontSize:32
+    fontSize:32,
+    backgroundColor: "#BB2CD9",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+    borderRadius: 15,
   },
+
   darkText: {
     color: '#000000',
     fontSize:32
   }
 })
-
 
 
 

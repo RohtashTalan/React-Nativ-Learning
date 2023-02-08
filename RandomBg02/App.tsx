@@ -6,7 +6,8 @@ import {
   Text,
   useColorScheme,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  StatusBar
 
 } from 'react-native'
 
@@ -27,12 +28,16 @@ const App = () =>{
   }
 
   return(
+    <>
+    <StatusBar backgroundColor= {randomColor} />
+
       <View style={[styles.container, {backgroundColor: randomColor}]}>
         <TouchableOpacity onPress={changeBG}>
         <Text style={isDarkMode ? styles.whiteText:styles.darkText}>
           Tap Me
         </Text></TouchableOpacity>
       </View>
+    </>
   )
 }
 

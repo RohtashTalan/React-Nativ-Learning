@@ -9,7 +9,7 @@ import {
 
 } from 'react-native'
 
-function App(): JSX.Element{
+const App = () =>{
   const isDarkMode = useColorScheme() === 'dark';
 
   return(
@@ -37,5 +37,16 @@ const styles = StyleSheet.create({
     fontSize:32
   }
 })
+
+
+
+
+
+
+
+
+
+
+
 
 export default App;

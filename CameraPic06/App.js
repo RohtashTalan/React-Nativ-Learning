@@ -67,9 +67,9 @@ const App = () => {
   ) : (
     <RNCamera
     style={styles.preview}
-    type={RNCamera.Constants.Type.front}
+    type={RNCamera.Constants.Type.back}
     captureAudio={false}
-    flashMode={RNCamera.Constants.FlashMode.on}
+    flashMode={RNCamera.Constants.FlashMode.off}
     androidCameraPermissionOptions={{
       title: "Permission to use camera",
       message: "Longer Text to use camera",

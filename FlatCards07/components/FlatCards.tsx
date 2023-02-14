@@ -15,11 +15,16 @@ const FlatCards = () => {
         <View style={[styles.card, styles.cardThree]}>
           <Text>Blue</Text>
         </View>
+        <View style={[styles.card, styles.cardThree]}>
+          <Text>Blue</Text>
+        </View>
 
       </View>
     </View>
   )
 }
+
+
 
 const styles = StyleSheet.create({
   headingText: {

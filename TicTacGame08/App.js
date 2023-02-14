@@ -1,25 +1,16 @@
-import { View, StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text} from 'react-native'
 import React, { useState } from 'react'
-import {
-Text,
-Container,
-Content,
-Header,
-Body,
-Title,
-Card,
-H1,
-H3,
-Button,
-} from 'native-base';
+
 import Icons from './components/Icons';
 import Snackbar from 'react-native-snackbar';
+import { SafeAreaView } from 'react-native';
 
 
 const itemArray = new Array(9).fill('empty')
 
 
-export default function App() {
+
+const App = () => {
   const [isCross, setIsCross] = useState(false);
   const [winMessage, setWinMessage] = useState('');
 
@@ -71,67 +62,66 @@ export default function App() {
       }
     }
 
+
 return false;
 
 }
 
 
 
-  return (
-    <>
-    <SafeAreaView>
-<View style={{backgroundColor: "#333495", padding:15}}>
-  <View>
-    <View>
-      <Title>TicTacToe Game</Title>
-    </View>
-  </View>
-  <Content>
-    <View style={styles.grid}>
-      {itemArray.map((item, index)=>(
-        <TouchableOpacity
-        style={styles.box}
-        key={index}
-        onPress={()=> changeItem(index)}>
-          <Card style={styles.card}>
-            <Icons name={item} />
-          </Card>
-        </TouchableOpacity>
-      ))}
-    </View>
-    
-    {winMessage ? (
-      <View>
-        <Text style={styles.message}>
-          {winMessage} </Text>
-          <View 
-          onPress={reloadGame}
-          block
-          rounded
-          primary          
-          >
-            <Text>Reload Game</Text>
-          </View>
-      </View>
-    ):(
-      <View>
-        <Text style={styles.message}>
-          {isCross ? 'Cross': 'Circle'} Turn
-        </Text>
-      </View>
-    )}
-  </Content>
-  </View>
 
-</SafeAreaView>
-    </>
-  )
+  return (
+      
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <View style={{margin:10}}>
+            <Text style={{fontSize:30, textAlign:'center'}}>TicTacToe Game</Text>
+          </View>
+        <View style={{marginBottom:16}}>
+          <View style={styles.grid}>
+            {itemArray.map((item, index) => (
+              <TouchableOpacity
+                style={styles.box}
+                key={index}
+                onPress={() => changeItem(index)}>
+                <View style={styles.card}>
+                  <Icons name={item} />
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+
+          {winMessage ? (
+            <View>
+              <Text style={styles.message}>{winMessage} </Text>
+              <TouchableOpacity onPress={reloadGame} block rounded primary>
+                <Text style={{fontSize:30, textAlign:'center', backgroundColor:"#a852B3", marginHorizontal:60, padding:10, borderRadius:8}}>Reload Game</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={{marginTop:16}}>
+              <Text style={[styles.turn]}>
+                {isCross ? <Icons name={'cross'} /> : <Icons name={'circle'} />} Turn
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+    </SafeAreaView>
+    
+  );
 }
 
 
+export default App;
+
+
 const styles = StyleSheet.create({
-  grid: {
+  container: {
     flex: 1,
+    backgroundColor: '#333495',
+  },
+  grid: {
     flexDirection: "row",
     flexWrap: "wrap",
     marginTop: 20
@@ -146,6 +136,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   message: {
+    textAlign: "center",
+    textTransform: "uppercase",
+    color: "#fff",
+    marginTop: 20,
+    backgroundColor: "#4652B3",
+    paddingVertical:10,
+    marginVertical:16
+  },
+  turn: {
     textAlign: "center",
     textTransform: "uppercase",
     color: "#fff",

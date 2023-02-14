@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity} from 'react-native'
+import { View, StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native'
 import React, { useState } from 'react'
 import {
 Text,
@@ -10,7 +10,7 @@ Title,
 Card,
 H1,
 H3,
-Button
+Button,
 } from 'native-base';
 import Icons from './components/Icons';
 import Snackbar from 'react-native-snackbar';
@@ -79,12 +79,13 @@ return false;
 
   return (
     <>
-<Container style={{backgroundColor: "#333495", padding:15}}>
-  <Header>
-    <Body>
+    <SafeAreaView>
+<View style={{backgroundColor: "#333495", padding:15}}>
+  <View>
+    <View>
       <Title>TicTacToe Game</Title>
-    </Body>
-  </Header>
+    </View>
+  </View>
   <Content>
     <View style={styles.grid}>
       {itemArray.map((item, index)=>(
@@ -101,26 +102,28 @@ return false;
     
     {winMessage ? (
       <View>
-        <H1 style={styles.message}>
-          {winMessage} </H1>
-          <Button 
+        <Text style={styles.message}>
+          {winMessage} </Text>
+          <View 
           onPress={reloadGame}
           block
           rounded
           primary          
           >
             <Text>Reload Game</Text>
-          </Button>
+          </View>
       </View>
     ):(
       <View>
-        <H3 style={styles.message}>
+        <Text style={styles.message}>
           {isCross ? 'Cross': 'Circle'} Turn
-        </H3>
+        </Text>
       </View>
     )}
   </Content>
-</Container>
+  </View>
+
+</SafeAreaView>
     </>
   )
 }

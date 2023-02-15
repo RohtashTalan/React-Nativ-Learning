@@ -61,7 +61,10 @@ const App = () => {
         itemArray[a] === 'cross' ? setWinMessage('Cross wins the Game') : setWinMessage('Circle wins the Game')
       }
     }
-
+    
+    if(!(itemArray.includes('empty'))){
+      setWinMessage("Match Draw")
+    }
 
 return false;
 

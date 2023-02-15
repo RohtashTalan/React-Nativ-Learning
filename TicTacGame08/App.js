@@ -55,16 +55,24 @@ const App = () => {
       [2,5,8]
     ];
 
+
+
+
+
     for(let logic of winnerLogic){
       const [a,b,c] = logic;
       if(itemArray[a] === itemArray[b] && itemArray[a] === itemArray[c] && itemArray[a] !== 'empty'){
         itemArray[a] === 'cross' ? setWinMessage('Cross wins the Game') : setWinMessage('Circle wins the Game')
+        return;
       }
+
     }
     
     if(!(itemArray.includes('empty'))){
-      setWinMessage("Match Draw")
+      setWinMessage("Match Draw");
+      return;
     }
+
 
 return false;
 

@@ -8,17 +8,16 @@ const FancyCard = () => {
       <View style={[styles.card, styles.cardElevated]}>
         <Image 
         source={{
-            uri: 'https://i.pinimg.com/originals/b2/51/4a/b2514a16ffe8675314ec1fff66e93c0b.jpg'
+            uri: 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Hawa_Mahal_east_facade_%2814-07-2022%29.jpg'
         }}
         style={styles.cardImage}
         />
         <View style={styles.cardBody}>
-            <Text style={styles.cardTitle}>Pic Forest</Text>
-            <Text style={styles.cardLabel}>Pic Forest</Text>
-            <Text style={styles.cardDescription}>Pic Forest</Text>
-            <Text style={styles.cardDescription}>Pic Forest</Text>
-            <Text style={styles.cardFooter}>Pic Forest</Text>
-
+        <Text style={styles.cardTitle}>Hawa Mahal</Text>
+            <Text style={styles.cardLabel}>Pink City, jaipur</Text>
+            <Text style={styles.cardDescription}>The Hawa Mahal is a palace in the city of Jaipur, India. Built from
+            red and pink sandstone, it is on the edge of the City Palace.</Text>
+            <Text style={styles.cardFooter}>12 mins away</Text>
         </View>
 
       </View>

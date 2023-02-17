@@ -1,11 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, ScrollView } from 'react-native'
 import React from 'react'
 
+import { Fab, Icon } from 'native-base'
 const Home = () => {
   return (
-    <View>
-      <Text style={styles.heading}>Home</Text>
-    </View>
+    <ScrollView>
+        <Text>List of Seasons goes here</Text>
+
+
+        <Fab
+        style={{
+            backgroundColor: "#5067ff"}}
+        position="bottomRight"
+            >
+                <Icon name="add" />
+        </Fab>
+    </ScrollView>
   )
 }
 

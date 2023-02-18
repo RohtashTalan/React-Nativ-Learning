@@ -8,16 +8,6 @@ const Home = () => {
         backgroundColor:"#000"
     }}>
         <Text>List of Seasons goes here</Text>
-        <Icon name="add" />
-
-{/* 
-        <Fab
-        style={{
-            backgroundColor: "#5067ff"}}
-        position="bottomRight"
-            >
-                <Icon name="add" />
-        </Fab> */}
     </ScrollView>
   )
 }

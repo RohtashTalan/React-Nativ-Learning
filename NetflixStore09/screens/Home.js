@@ -56,12 +56,17 @@ const Home = ({navigation, route}) => {
             Next Series to Watch
           </Text>
           {listOfSeason.map(item => (
-            <HStack key={item.id} alignContent="center" justifyContent="space-between">
-              <DeleteIcon color="red.600" style={{ alignSelf:"flex-end"}}/>
-              <QuestionIcon />
+            <HStack key={item.id} 
+            style={{
+              flex:1,
+              flexDirection:"row",
+              alignContent:"space-between"
+            }}>
+              <DeleteIcon color="red.600" />
+              {/* <QuestionIcon /> */}
 
 
-              <Text color={'#fff'} style={{ alignSelf:"flex-end"}}>{item.name}</Text>
+              <Text color={'#fff'}>{item.name}</Text>
 
             </HStack>
           ))}

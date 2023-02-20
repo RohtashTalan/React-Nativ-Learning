@@ -1,17 +1,87 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import React from 'react'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import React, { useEffect, useState } from 'react'
 
-import { Fab, Icon } from 'native-base'
+import { Fab,
+     Icon,
+      Text,
+      Button,
+      Container,
+      HStack,
+      Center,
+      DeleteIcon,
+      QuestionIcon,
+      AddIcon
+     } from 'native-base'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
+const Home = ({navigation, route}) => {
+    const [listOfSeason, setListOfSeason] = useState([])
+
+    const getList = async () => {
+      const storedValue = await AsyncStorage.getItem('@season_list');
+      const prevList = await JSON.parse(storedValue);
+      if(!prevList){
+       setListOfSeason(prevList);
+       console.log(listOfSeason);
+      }
+    }
+
+    const deleteSeason = async() => {
+        
+    }
+
+    const markComplete = async() => {
+
+    }
 
 
-const Home = () => {
+    useEffect(()=>{
+      getList();
+    },[])
+
+
+
   return (
-    <ScrollView style={{
-        backgroundColor:"#000"
-    }}>
-        <Text>List of Seasons goes here</Text>
+    <ScrollView
+      style={{
+        backgroundColor: '#000',
+      }}
+      contentContainerStyle={styles.container}>
+      <Text style={styles.heading} fontSize="xl">
+        List of Seasons goes here
+      </Text>
+      {listOfSeason.length !== 0 ? (
+        <Container style={styles.container}>
+          <Text fontSize="lg" style={styles.heading}>
+            Next Series to Watch
+          </Text>
+          {listOfSeason.map(item => (
+            <HStack key={item.id} alignContent="center" justifyContent="space-between">
+              <DeleteIcon color="red.600" style={{ alignSelf:"flex-end"}}/>
+              <QuestionIcon />
+
+
+              <Text color={'#fff'} style={{ alignSelf:"flex-end"}}>{item.name}</Text>
+
+            </HStack>
+          ))}
+        </Container>
+      ) : (
+        <Text fontSize="lg" style={{color: '#eee', textAlign: 'center'}}>
+          Watchlist is empty. please add season
+        </Text>
+      )}
+
+      <Fab
+      style={{backgroundColor: '#5067ff'}}
+      onPress={() => navigation.navigate('Add')}
+        >
+        <AddIcon 
+        color="red.800" fontSize="lg"/>
+      </Fab>
     </ScrollView>
-  )
+  );
 }
 
 export default Home
@@ -26,6 +96,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#1b262c',
         flex: 1,
+        alignItems: 'center'
     },
     heading: {
         textAlign: 'center',

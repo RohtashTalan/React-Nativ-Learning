@@ -21,9 +21,8 @@ const Home = ({navigation, route}) => {
     const getList = async () => {
       const storedValue = await AsyncStorage.getItem('@season_list');
       const prevList = await JSON.parse(storedValue);
-      if(!prevList){
+      if(prevList){
        setListOfSeason(prevList);
-       console.log(listOfSeason);
       }
     }
 

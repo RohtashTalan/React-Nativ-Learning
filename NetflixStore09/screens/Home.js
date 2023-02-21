@@ -11,7 +11,10 @@ import { Fab,
       Center,
       DeleteIcon,
       QuestionIcon,
-      AddIcon
+      AddIcon,
+      CircleIcon,
+      CheckCircleIcon,
+      CheckIcon
      } from 'native-base'
 
 
@@ -53,22 +56,30 @@ const Home = ({navigation, route}) => {
         List of Seasons goes here
       </Text>
       {listOfSeason.length !== 0 ? (
-        <Container>
+        <Container style={styles.container}>
           <Text fontSize="lg" style={styles.heading}>
             Next Series to Watch
           </Text>
           {listOfSeason.map(item => (
-            <HStack key={item.id} 
-            style={{
-              flex:1,
-              flexDirection:"row",
-              alignContent:"space-between"
-            }}>
-              <DeleteIcon color="red.600" />
+            <View key={item.id} 
+            style={{flexDirection: 'row', justifyContent:"space-between", alignItems:"center", backgroundColor:"#eee89f", padding:6, borderRadius:8, width:300, marginBottom:8}}>
+              <View style={{flexDirection: 'row', justifyContent:"space-between", alignItems:"center", gap:5}}>
+              <DeleteIcon size="lg" color="red.800" />
+              <QuestionIcon size="lg" color="blue.800" />
+              </View>
+             
+              <View>
+              <Text color={'#fff'} fontWeight="800" fontSize="xl">{item.name}</Text>
+              <Text color={'#000'} marginLeft="3" fontSize="xs">{item.totalNoSeason} season to watch</Text>
+              </View>
+             
+              <View>
+              {item.isWatched ? <CheckCircleIcon size="lg" color="coolGray.700"/>:<CheckIcon size="lg" color="coolGray.700"/>}
+              
+              </View>
+              
 
-              <Text color={'#fff'}>{item.name}</Text>
-
-            </HStack>
+            </View>
           ))}
         </Container>
       ) : (

@@ -18,9 +18,12 @@ import { Fab,
      } from 'native-base'
 
 
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { useIsFocused } from '@react-navigation/native';
 
 const Home = ({navigation, route}) => {
+  const isFocused = useIsFocused();
     const [listOfSeason, setListOfSeason] = useState([])
 
     const getList = async () => {
@@ -31,18 +34,31 @@ const Home = ({navigation, route}) => {
       }
     }
 
-    const deleteSeason = async() => {
-        
+    const deleteSeason = async(id) => {
+        const newList = await listOfSeason.filter((list) => list.id !== id)
+
+        await AsyncStorage.setItem('@season_list', JSON.stringify(newList));
+        setListOfSeason(newList)
     }
 
-    const markComplete = async() => {
+    const markComplete = async(id) => {
+       const newArr = listOfSeason.map((list)=>{
+        if(list.id===id){
+          list.isWatched = !list.isWatched
+        }
+        return list
+       });
+
+       await AsyncStorage.setItem('@season_list', JSON.stringify(newArr));
+       setListOfSeason(newArr)
 
     }
+
 
 
     useEffect(()=>{
       getList();
-    },[])
+    },[isFocused])
 
 
 
@@ -64,8 +80,13 @@ const Home = ({navigation, route}) => {
             <View key={item.id} 
             style={{flexDirection: 'row', justifyContent:"space-between", alignItems:"center", backgroundColor:"#eee89f", padding:6, borderRadius:8, width:300, marginBottom:8}}>
               <View style={{flexDirection: 'row', justifyContent:"space-between", alignItems:"center", gap:5}}>
-              <DeleteIcon size="lg" color="red.800" />
-              <QuestionIcon size="lg" color="blue.800" />
+              <DeleteIcon onPress={()=>{
+                deleteSeason(item.id)
+              }} size="lg" color="red.800" />
+              <QuestionIcon onPress={()=>{
+                markComplete(item.id)
+              }}
+              size="lg" color="blue.800" />
               </View>
              
               <View>
@@ -73,8 +94,12 @@ const Home = ({navigation, route}) => {
               <Text color={'#000'} marginLeft="3" fontSize="xs">{item.totalNoSeason} season to watch</Text>
               </View>
              
-              <View>
-              {item.isWatched ? <CheckCircleIcon size="lg" color="coolGray.700"/>:<CheckIcon size="lg" color="coolGray.700"/>}
+              <View >
+              {item.isWatched ? <CheckCircleIcon onPress={()=>{
+                markComplete(item.id)
+              }} size="lg" color="coolGray.700"/>:<CheckIcon onPress={()=>{
+                markComplete(item.id)
+              }} size="lg" color="coolGray.700"/>}
               
               </View>
               

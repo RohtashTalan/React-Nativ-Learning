@@ -1,6 +1,7 @@
 import { StyleSheet, View, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 
+
 import { Fab,
      Icon,
       Text,
@@ -12,6 +13,7 @@ import { Fab,
       QuestionIcon,
       AddIcon
      } from 'native-base'
+
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
@@ -51,7 +53,7 @@ const Home = ({navigation, route}) => {
         List of Seasons goes here
       </Text>
       {listOfSeason.length !== 0 ? (
-        <Container style={styles.container}>
+        <Container>
           <Text fontSize="lg" style={styles.heading}>
             Next Series to Watch
           </Text>
@@ -63,8 +65,6 @@ const Home = ({navigation, route}) => {
               alignContent:"space-between"
             }}>
               <DeleteIcon color="red.600" />
-              {/* <QuestionIcon /> */}
-
 
               <Text color={'#fff'}>{item.name}</Text>
 

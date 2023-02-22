@@ -84,7 +84,7 @@ const Home = ({navigation, route}) => {
                 deleteSeason(item.id)
               }} size="lg" color="red.800" />
               <QuestionIcon onPress={()=>{
-                markComplete(item.id)
+                navigation.navigate('Edit', {item})
               }}
               size="lg" color="blue.800" />
               </View>

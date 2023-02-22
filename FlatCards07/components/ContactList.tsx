@@ -8,7 +8,7 @@ const ContactList = () => {
             uid: 1,
             name: 'Hitesh Choudhary',
             status: 'Just an extra ordinary teacher',
-            imageUrl: 'https://avatars.githubusercontent.com/u/11613311?v=4',
+            imageUrl: 'http://avatars.githubusercontent.com/u/11613311?v=4',
           },
           {
             uid: 2,
@@ -41,12 +41,15 @@ const ContactList = () => {
         {contacts.map(({uid, name, status, imageUrl})=>(
             <View key={uid} style={styles.userCard}>
                 <Image 
-                source={{uri:imageUrl}}
+                source={{uri:'imageUrl'}}
                 style={styles.userImage}
-                resizeMode={'cover'}
                 />
+                <View>
+                    
                 <Text style={styles.userName}>{name}</Text>
                 <Text style={styles.userStatus}>{status}</Text>
+            
+                </View>
             </View>
         ))}
       </ScrollView>
@@ -57,16 +60,39 @@ const ContactList = () => {
 export default ContactList
 
 const styles = StyleSheet.create({
-    headingText:{},
-    container:{},
-    userCard:{},
+    headingText:{
+        fontSize:24,
+        fontWeight:'bold',
+        paddingHorizontal:8
+    },
+    container:{
+        paddingHorizontal:16,
+        marginBottom:3
+    },
+    userCard:{
+        flex:1,
+        flexDirection:'row',
+        alignItems: 'center',
+        backgroundColor: "#8D3DAF",
+        marginBottom:3,
+        padding:8,
+        borderRadius:8
+    },
     userImage:{
         width:60,
         height:60,
-        borderRadius: 60/2
+        borderRadius: 60/2,
+        marginRight: 14
     },
-    userName:{},
-    userStatus:{}
+    userName:{
+        fontSize:16,
+        fontWeight:'600',
+        color:'#fff'
+    },
+    userStatus:{
+        fontSize:12,
+
+    }
 
 
 })

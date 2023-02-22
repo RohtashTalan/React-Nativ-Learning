@@ -41,7 +41,7 @@ const ContactList = () => {
         {contacts.map(({uid, name, status, imageUrl})=>(
             <View key={uid} style={styles.userCard}>
                 <Image 
-                source={{uri:'imageUrl'}}
+                source={{uri:imageUrl}}
                 style={styles.userImage}
                 />
                 <View>

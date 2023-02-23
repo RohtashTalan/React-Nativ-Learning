@@ -1,27 +1,53 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import {
 Box,
 VStack,
-Divider
+Divider,
+Image,
+Text,
+Heading
 } from 'native-base'
+import moment from 'moment/moment'
 
-const User = () => {
+const User = ({details}) => {
   return (
-    <View>
+    <View style={{
+        justifyContent:"center",
+        alignItems: 'center',
+      }}>
       <Box border="1" borderRadius="md">
-      <VStack space="4" divider={<Divider />}>
-        <Box px="4" pt="4">
-          NativeBase
+      <VStack space="2" pb="6" style={styles.card}>
+      <Box px="4" pt="4">
+          <Image 
+          source={{
+            uri:details.picture.large
+          }}
+          alt={details.name.first}
+          style={styles.image}
+          
+          />
+        </Box>
+        <Box px="4" pt="2">
+        <Heading size="md" color="#fff">{`${details.name?.title} ${details.name?.first} ${details.name?.last}`}</Heading>
         </Box>
         <Box px="4">
-          NativeBase is a free and open source framework that enable developers
-          to build high-quality mobile apps using React Native iOS and Android
-          apps with a fusion of ES6.
+          <Text style={styles.text}>{details.cell}</Text>
         </Box>
-        <Box px="4" pb="4">
-          GeekyAnts
+        <Box px="4">
+          <Text style={styles.text}>{details.email}</Text>
         </Box>
+        <Box px="4">
+          <Text style={styles.text}>Registered at {moment(details.registered?.date).format('dd-mm-yy')}</Text>
+        </Box>
+        <Box px="4">
+          <Text style={styles.text}>Registered at {details.cell}</Text>
+        </Box>
+        <Box px="4">
+          <Text style={styles.text}>Registered at {details.cell}</Text>
+        </Box>
+
+
       </VStack>
     </Box>
     </View>
@@ -34,7 +60,7 @@ export default User;
 
 const styles = StyleSheet.create({
     card: {
-      width: '90%',
+    //   width: '100%',
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#4f8a8b',

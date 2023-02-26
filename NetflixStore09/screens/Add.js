@@ -11,7 +11,7 @@ import {
   Text
 } from 'native-base'
 
-import shortid from 'shortid'
+
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Add = ({navigation}) => {
@@ -20,9 +20,7 @@ const Add = ({navigation}) => {
 
    const addToList = async() => {
   try {
-    if(!name || !totalNoSeason){
-      return alert("please add both filds")
-    }
+    
 
     const seasonToAdd = {
       id: shortid.generate(),

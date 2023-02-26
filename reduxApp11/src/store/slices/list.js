@@ -4,7 +4,11 @@ import shortid from 'shortid'
 
 const getList = async () => {
     const storedValue = await AsyncStorage.getItem('@season_list');
-    const prevList = await JSON.parse(storedValue);
+    console.log(storedValue, "........store");
+    let prevList
+    if (storedValue) {
+      prevList = await JSON.parse(storedValue);
+    }
     if(prevList){
      return prevList;
     } else{

@@ -9,7 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 
 // bring all screens
-import Home from './screens/Home';
+import Home from './screens/Home.js';
 import Add from './screens/Add.js';
 import Edit from './screens/Edit.js';
 

@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native'
 import React ,{useEffect, useState} from 'react'
-
+import {useDispatch } from 'react-redux'
 
 import {
   Container,
@@ -10,11 +10,36 @@ import {
   Button,
   Text
 } from 'native-base'
+import { updateSeason } from '../store/slices/list';
 
-import shortid from 'shortid'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Edit = ({navigation, route}) => {
+  const dispatch = useDispatch();
+
+  const [id, setId] =useState(null);
+  const [isWatched, setIsWatched] =useState(false);
+  const [name, setName] =useState('');
+  const [totalNoSeason, setTotalNoSeason] = useState('')
+
+  console.log(route.params);
+
+  const update = () => {
+    dispatch(updateSeason({
+      id,
+      name,
+      isWatched,
+      totalNoSeason
+    }));
+    navigation.navigate('Home')
+}
+
+useEffect(() => {
+  setName(route.params.item.name)
+  setTotalNoSeason(route.params.item.totalNoSeason)
+  setId(route.params.item.id)
+  setIsWatched(route.params.item.isWatched)
+
+  }, [route.params]);
 
 
   return (
@@ -39,7 +64,8 @@ const Edit = ({navigation, route}) => {
         onChangeText={(text)=> setTotalNoSeason(text)}
         />
         <Button size="sm"
-        onPress={update}>
+        onPress={update}
+        >
           Update
         </Button>
       </FormControl>

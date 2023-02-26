@@ -3,17 +3,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import shortid from 'shortid'
 
 const getList = async () => {
-    const storedValue = await AsyncStorage.getItem('@season_list');
-    console.log(storedValue, "........store");
-    let prevList
-    if (storedValue) {
-      prevList = await JSON.parse(storedValue);
-    }
-    if(prevList){
-     return prevList;
-    } else{
-        return []
-    }
+    return await AsyncStorage.getItem('@season_list').then((response) => {
+      if(response){
+        return response.json()
+      }
+    }).catch((err) => {
+      console.error(err);
+      return []
+    })
+   
+
   }
 
 const setList = async (seasons) => {
@@ -27,7 +26,7 @@ const setList = async (seasons) => {
 
 const list = createSlice({
     name: "List",
-    initialState: getList(),
+    initialState: [],
     reducers:{
         addSeason(state, action){
             if(!action.payload.name || !action.payload.totalNoSeason){
@@ -43,9 +42,8 @@ const list = createSlice({
             setList(state);
         },
         removeSeason(state, action){
-            const newList = state.filter((list) => list.id !== action.payload.id);
-            state = newList;
-            setList(newList);
+            const newList = state.filter((list) => list.id !== action.payload);
+            return newList;
         },
         updateSeason(state, action){
             if(!action.payload.name || !action.payload.totalNoSeason){
@@ -68,13 +66,14 @@ const list = createSlice({
                setList(state);
         },
         markCompleteSeason(state, action){
+          console.log(action.payload, "........markcomplete");
             state.map((list)=>{
-                if(list.id === action.payload.id){
+                if(list.id === action.payload){
                   list.isWatched = !list.isWatched
                 }
                 return list
                });
-               setList(state)
+              //  setList(state)
         },
     }
 })

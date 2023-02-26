@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView } from 'react-native'
 import React ,{useState} from 'react'
-
+import { useSelector, useDispatch } from 'react-redux'
 
 import {
   Container,
@@ -10,11 +10,19 @@ import {
   Button,
   Text
 } from 'native-base'
+import { addSeason } from '../store/slices/list'
 
 
 
 const Add = ({navigation}) => {
+    const dispatch = useDispatch();
+    const [name, setName] = useState('')
+    const [totalNoSeason, setTotalNoSeason] = useState('')
 
+    const addToList = () => {
+        dispatch(addSeason({name,totalNoSeason}));
+        navigation.navigate('Home')
+    }
 
   return (
     <ScrollView
@@ -38,7 +46,8 @@ const Add = ({navigation}) => {
           onChangeText={(text)=> setTotalNoSeason(text)}
           />
           <Button size="sm"
-          onPress={addToList}>
+          onPress={addToList}
+          >
             Add
           </Button>
         </FormControl>

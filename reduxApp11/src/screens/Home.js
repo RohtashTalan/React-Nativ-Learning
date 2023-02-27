@@ -19,19 +19,20 @@ import { Fab,
 
 
 import { useIsFocused } from '@react-navigation/native';
-import { markCompleteSeason, removeSeason } from '../store/slices/list';
+import { getList, markCompleteSeason, removeSeason } from '../store/slices/list';
 
 const Home = ({navigation, route}) => {
   const dispatch = useDispatch();
-  const seasonList = useSelector((state) => state.seasonList);
+  const seasonList = useSelector((state) => state.seasonList.data);
 
-  console.log(seasonList, ".....homepage");
-
-
+  console.log(seasonList);
   const deleteSeason = async id => {dispatch(removeSeason(id))};
 
   const markComplete = async id => {dispatch(markCompleteSeason(id))};
 
+  useEffect(() => {
+    dispatch(getList())
+  }, [])
   return (
     <ScrollView
       style={{
@@ -41,7 +42,7 @@ const Home = ({navigation, route}) => {
       <Text style={styles.heading} fontSize="xl">
         List of Seasons goes here
       </Text>
-      {seasonList ? (
+      {seasonList.length ? (
         <Container style={styles.container}>
           <Text fontSize="lg" style={styles.heading}>
             Next Series to Watch

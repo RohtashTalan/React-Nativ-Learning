@@ -4,7 +4,7 @@ import React from 'react'
 const Index = () => {
   return (
     <View>
-      <Text>Index</Text>
+      <Text>App Working on redux</Text>
     </View>
   )
 }

@@ -1,7 +1,11 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import {
+  Header,
+  Body,
+  Right,
   Text,
+  Title,
   Button,
   Icon,
 } from 'native-base'
@@ -13,13 +17,57 @@ import { signOut } from '../store/action/auth'
 
 const CustomHeader = ({signOut, authState, navigation}) => {
   return (
-    <View>
-      <Text>CustomHeader layout</Text>
-    </View>
+   <>
+   <Header
+   androidStausBarColor="#0f4c75"
+   style={{
+    backgroundColor: "#0f4c75"
+   }}
+  
+   >
+    <Body>
+      <Title>Social App LCO</Title>
+    </Body>
+    <Right>
+      {authState.isAuthenticated && (<>
+      <Button
+      transparent
+      iconLeft
+      onPress={()=> navigation.navigate('AddPost')}
+      >
+        <Text
+        style={{
+          color:"#fdcb9e"
+        }}
+        >Add Post</Text>
+      </Button>
+      <Button
+      transparent
+      onPress={()=> signOut()}
+      >
+        <Icon name="log-out-outline"/>
+      </Button>
+      </>)}
+    </Right>
+
+   </Header>
+   </>
   )
 }
 
+const mapStateToProps = (state) => ({
+  authState: state.auth
+})
 
-export default CustomHeader
+const mapDispatchToProps = {
+  signOut
+}
+
+CustomHeader.prototype = {
+  signOut: propTypes.func.isRequired,
+  authState: propTypes.object.isRequired
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomHeader)
 
 const styles = StyleSheet.create({})

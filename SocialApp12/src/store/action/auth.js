@@ -40,7 +40,6 @@ export const signUp = (data) => async(dispatch) => {
     })
 }
 
-
 export const signIN = (data) => async(dispatch) => {
    
     const {email, password} = data

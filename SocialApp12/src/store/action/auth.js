@@ -3,9 +3,6 @@ import Snackbar from 'react-native-snackbar';
 import database from '@react-native-firebase/database'
 import { firebase_db } from '../../database';
 
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-
-
 
 export const signUp = (data) => async(dispatch) => {
     const {name, instaUserName, bio, email, password, country, image} = data
@@ -93,24 +90,5 @@ export const signOut = () => async(dispatch) => {
 }
 
 
-const initialState = {
-    user:null,
-    loading: true,
-    isAuthenticated: false
-}
-
-const AUTH = createSlice({
-    name:'AUTH',
-    initialState,
-    reducers:{
-        
-    },
-    extraReducers: builder => {
-        builder
-        .addCase()
-    }
-
-
-})
 
 

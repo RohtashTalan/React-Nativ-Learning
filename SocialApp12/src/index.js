@@ -48,19 +48,20 @@ const Index = () => {
     askPermission();
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
-  });
+  },[]);
 
 
-  // if (authState.loading) {
-  //   return <EmptyContainer />;
-  // }
+  if (authState.loading) {
+    return <EmptyContainer />;
+  }
 
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator
+         <Stack.Navigator
           screenOptions={{
-            header: props => <CustomHeader {...props} />,
+            header: props => <CustomHeader {...props} 
+          />,
           }}>
           {authState.IS_AUTHENTICATED ? (
             <>
@@ -73,7 +74,7 @@ const Index = () => {
               <Stack.Screen name="Signin" component={Signin} />
             </>
           )}
-        </Stack.Navigator>
+        </Stack.Navigator> 
       </NavigationContainer>
     </>
   );
@@ -81,4 +82,3 @@ const Index = () => {
 
 export default Index;
 
-const styles = StyleSheet.create({});

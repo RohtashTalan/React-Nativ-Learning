@@ -8,7 +8,6 @@ const EmptyContainer = () => {
   return (
     <Container style={styles.emptyContainer}>
         <Spinner />
-        <Text>hello</Text>
     </Container>
   )
 }

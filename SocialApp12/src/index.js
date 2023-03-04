@@ -18,7 +18,7 @@ import CustomHeader from './layout/CustomHeader';
 import {SET_USER, IS_AUTHENTICATED} from './store/slices/auth';
 
 import EmptyContainer from './components/EmptyContainer';
-import askPermission from './utils/AskPermission';
+import {askPermission} from './utils/AskPermission';
 import {firebase_db} from './database';
 
 const Stack = createStackNavigator();

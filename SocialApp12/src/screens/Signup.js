@@ -5,20 +5,13 @@ import {Container, ScrollView, Input, Stack, FormControl, Image, Avatar, Button}
 import storage from '@react-native-firebase/storage';
 
 import ProgressBar from  'react-native-progress/Bar';
-import ImagePicker from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {options} from '../utils/options'
 
 import propTypes from 'prop-types'
 import { signUp } from '../store/slices/auth';
 import {connect} from 'react-redux';
-
-const chooseImage = async() => {
-
-}
-
-const doSignUp = async() => {
-
-}
+import { ToastAndroid } from 'react-native';
 
 
 
@@ -36,6 +29,46 @@ const Signup = () => {
     const [uploadStatus, setUploadStatus] = useState(null)
 
 
+    const chooseImage = async() => {
+      const result = await launchImageLibrary(options);
+      if (result.didCancel) {
+        ToastAndroid.show('user canceled.. Image Not Selected',ToastAndroid.LONG);
+      } else if (result.error) {
+        ToastAndroid.show('ImagePicker Error',ToastAndroid.LONG);
+      } else if (result.errorMessage) {
+        console.log("ImagePicker ErrorMessage",  result.errorMessage);
+      } else{
+        uploadImage(result.assets[0])
+        
+      }
+    }
+
+    
+    const uploadImage = async (response) => {
+      setImageUploading(true)
+      const reference = storage().ref(response.fileName)
+      const task = reference.putFile(response.uri);
+      task.on('state_changed', (taskSnapshot) => {
+        const percentage = (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 1000
+        setUploadStatus(percentage)
+      });
+
+      task.then(async () => {
+        const url = await reference.getDownloadURL();
+        setImage(url)
+        setImageUploading(false);
+        setUploadStatus(null)
+
+      })
+    }
+    
+
+
+    const doSignUp = () => {
+      signUp({image, name, email, password, bio, country, instaUserName});
+     
+    }
+    
 
 
 
@@ -55,7 +88,6 @@ const Signup = () => {
         <FormControl>
           <Stack space={5} >
             <Stack>
-              <FormControl.Label>Username</FormControl.Label>
               <Input
                 placeholder="name"
                 value={name}
@@ -65,7 +97,6 @@ const Signup = () => {
             </Stack>
 
             <Stack>
-              <FormControl.Label>Username</FormControl.Label>
               <Input
                 placeholder="email"
                 value={email}
@@ -75,7 +106,6 @@ const Signup = () => {
             </Stack>
 
             <Stack>
-              <FormControl.Label>Username</FormControl.Label>
               <Input
                 placeholder="password"
                 value={password}
@@ -85,8 +115,7 @@ const Signup = () => {
               />
             </Stack>
 
-            <Stack style={styles.formItem}>
-              <FormControl.Label>Username</FormControl.Label>
+            <Stack>
               <Input
                 placeholder="Instagram user name"
                 value={instaUserName}
@@ -96,7 +125,6 @@ const Signup = () => {
             </Stack>
 
             <Stack>
-              <FormControl.Label>Username</FormControl.Label>
               <Input
                 placeholder="Your Short Bio"
                 value={bio}
@@ -106,7 +134,6 @@ const Signup = () => {
             </Stack>
 
             <Stack>
-              <FormControl.Label>Username</FormControl.Label>
               <Input
                 placeholder="country"
                 value={country}
@@ -115,7 +142,7 @@ const Signup = () => {
               />
             </Stack>
 
-            <Button regular block onPress={doSignUp}>
+            <Button regular block onPress={() => doSignUp()}>
               <Text>SignUp</Text>
             </Button>
           </Stack>
@@ -124,15 +151,9 @@ const Signup = () => {
   );
 };
 
-const mapDispatchToProps = {
-  signUp: (data) => signUp(data)
-}
 
-Signup.propTypes = {
-  signUp: propTypes.func.isRequired
-}
 
-export default connect(null, mapDispatchToProps)(Signup);
+export default Signup
 
 
 

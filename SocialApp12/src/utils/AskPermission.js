@@ -14,8 +14,6 @@ const askPermission = async () => {
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
     ]);
 
-    console.log(grandted);
-
     if (
       grandted['PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE'] ===
         'denied' ||
@@ -33,6 +31,6 @@ const askPermission = async () => {
   }
 };
 
-export default askPermission;
+export  {askPermission};
 
 const styles = StyleSheet.create({});

@@ -5,14 +5,14 @@ import { firebase_db } from '../../database';
 import { createSlice } from '@reduxjs/toolkit';
 
 
-export const signUp = (data) => async(dispatch) => {
+export const signUp = async (data) =>  {
     const {name, instaUserName, bio, email, password, country, image} = data
-    
+    console.log("signup...dat...", data);
     auth().createUserWithEmailAndPassword(email, password)
     .then((data) => {
         console.log(data);
 
-        database(firebase_db)
+        database()
         .ref('/users/'+data.user.uid)
         .set({
             name,

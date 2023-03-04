@@ -1,18 +1,12 @@
 import { StyleSheet, View } from 'react-native'
 import React from 'react'
 import {
-  Header,
-  Body,
-  Right,
-  Text,
-  Title,
-  Button,
-  Icon,
+ 
 } from 'native-base'
 
 import {connect } from 'react-redux'
 import propTypes from 'prop-types'
-import { signOut } from '../store/action/auth'
+import { signOut } from '../store/slices/auth'
 
 
 const CustomHeader = ({signOut, authState, navigation}) => {
@@ -29,7 +23,7 @@ const CustomHeader = ({signOut, authState, navigation}) => {
       <Title>Social App LCO</Title>
     </Body>
     <Right>
-      {authState.isAuthenticated && (<>
+      <>
       <Button
       transparent
       iconLeft
@@ -47,7 +41,7 @@ const CustomHeader = ({signOut, authState, navigation}) => {
       >
         <Icon name="log-out-outline"/>
       </Button>
-      </>)}
+      </>
     </Right>
 
    </Header>

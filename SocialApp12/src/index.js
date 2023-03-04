@@ -17,7 +17,7 @@ import Home from './screens/Home'
 import CustomHeader from './layout/CustomHeader'
 
 
-import {SET_USER, IS_AUTHENTICATED} from './store/action/auth';
+import {SET_USER, IS_AUTHENTICATED} from './store/slices/auth';
 
 import EmptyContainer from './components/EmptyContainer'
 import AskPermission from './utils/AskPermission'
@@ -61,25 +61,24 @@ const Index = ({authState}) => {
   }
 
 
-  // if(authState.loading){
-  //   return <EmptyContainer />
-  // }
+  if(authState.loading){
+    return <EmptyContainer />
+  }
 
   return (
     <>
+    <NavigationContainer>
     <Stack.Navigator
     screenOptions={{
       header:(props) => <CustomHeader {...props} />
     }}
     >
-      {authState.isAuthenticated ? (<>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="AddPost" component={AddPost} />
-      </>):(<>
         <Stack.Screen name="Signin" component={Signin} />
       <Stack.Screen name="Signup" component={Signup} />
-      </>)}
     </Stack.Navigator>
+    </NavigationContainer>
     </>
   )
 }

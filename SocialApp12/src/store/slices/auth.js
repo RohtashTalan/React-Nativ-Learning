@@ -2,6 +2,7 @@ import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
 import database from '@react-native-firebase/database'
 import { firebase_db } from '../../database';
+import { createSlice } from '@reduxjs/toolkit';
 
 
 export const signUp = (data) => async(dispatch) => {
@@ -89,5 +90,34 @@ export const signOut = () => async(dispatch) => {
 }
 
 
+const initialState = {
+    user: null,
+    loading: true,
+    isAuthenticated: false
+};
 
 
+const authState = createSlice({
+    name: "authState",
+    initialState,
+    reducers:{
+        SET_USER(state, action){
+            return{
+                ...state,
+                user:action.payload,
+                loading:false
+            }
+        },
+        IS_AUTHENTICATED(state, action){
+            return{
+                ...state,
+                isAuthenticated:action.payload,
+                loading:false
+            }
+        },
+    },
+})
+
+
+export {authState};
+export const {SET_USER, IS_AUTHENTICATED} = authState.actions;

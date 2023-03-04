@@ -1,11 +1,15 @@
-import rootReducer from './reducer'
 import { configureStore } from "@reduxjs/toolkit";
+import { authState } from "./slices/auth";
+import { postState } from "./slices/post";
 
 
 const store = configureStore({
     reducer:{
-        rootReducer
-    }
+        authState:authState.reducer,
+        postState:postState.reducer
+    },
+    
 })
+
 
 export default store;

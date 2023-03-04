@@ -4,9 +4,11 @@ import React from 'react'
 import {Container, Spinner} from 'native-base'
 
 const EmptyContainer = () => {
+
   return (
     <Container style={styles.emptyContainer}>
         <Spinner />
+        <Text>hello</Text>
     </Container>
   )
 }

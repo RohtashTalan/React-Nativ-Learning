@@ -1,67 +1,74 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
+import {StyleSheet, View} from 'react-native';
+import React from 'react';
 import {
- 
-} from 'native-base'
+  VStack,
+  HStack,
+  Button,
+  IconButton,
+  Icon,
+  Text,
+  NativeBaseProvider,
+  Center,
+  Box,
+  StatusBar,
+  AddIcon,
+} from 'native-base';
+import {MaterialIcons} from '@expo/vector-icons';
 
-import {connect } from 'react-redux'
-import propTypes from 'prop-types'
-import { signOut } from '../store/slices/auth'
-
+import {connect} from 'react-redux';
+import propTypes from 'prop-types';
+import {signOut} from '../store/slices/auth';
 
 const CustomHeader = ({signOut, authState, navigation}) => {
   return (
-   <>
-   <Header
-   androidStausBarColor="#0f4c75"
-   style={{
-    backgroundColor: "#0f4c75"
-   }}
-  
-   >
-    <Body>
-      <Title>Social App LCO</Title>
-    </Body>
-    <Right>
-      <>
-      <Button
-      transparent
-      iconLeft
-      onPress={()=> navigation.navigate('AddPost')}
-      >
-        <Text
-        style={{
-          color:"#fdcb9e"
-        }}
-        >Add Post</Text>
-      </Button>
-      <Button
-      transparent
-      onPress={()=> signOut()}
-      >
-        <Icon name="log-out-outline"/>
-      </Button>
-      </>
-    </Right>
+    <>
+      <HStack
+        bg="violet.800"
+        px="1"
+        py="3"
+        justifyContent="space-between"
+        alignItems="center">
+        <HStack alignItems="center">
+          <Text color="white" fontSize="20" fontWeight="bold">
+            Social App LCO
+          </Text>
+        </HStack>
+        <HStack>
+          <Button
+            transparent
+            iconLeft
+            onPress={() => navigation.navigate('AddPost')}>
+            <AddIcon color="white" size="lg" />
+          </Button>
+          <Button transparent onPress={() => signOut()}>
+            <Text
+              style={{
+                color: '#fdcb9e',
+              }}>
+              Add Post
+            </Text>
+            {/* <Icon name="log-out-outline"/> */}
+          </Button>
+          {/* <IconButton icon={<Icon as={MaterialIcons} name="logout" size="sm" color="white" />} /> */}
+        </HStack>
+      </HStack>
+    </>
+  );
+};
 
-   </Header>
-   </>
-  )
-}
-
-const mapStateToProps = (state) => ({
-  authState: state.auth
-})
+const mapStateToProps = state => ({
+  authState: state.auth,
+});
 
 const mapDispatchToProps = {
-  signOut
-}
+  signOut,
+};
 
 CustomHeader.prototype = {
   signOut: propTypes.func.isRequired,
-  authState: propTypes.object.isRequired
-}
+  authState: propTypes.object.isRequired,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(CustomHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(CustomHeader);
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

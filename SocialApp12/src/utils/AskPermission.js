@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import React from 'react';
 
-const AskPermission = async () => {
+const askPermission = async () => {
   try {
     const grandted = await PermissionsAndroid.requestMultiple([
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
@@ -26,13 +26,13 @@ const AskPermission = async () => {
         'We cannot proceed without permission',
         ToastAndroid.LONG,
       );
-      AskPermission();
+      askPermission();
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-export default AskPermission;
+export default askPermission;
 
 const styles = StyleSheet.create({});

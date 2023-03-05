@@ -3,6 +3,7 @@ import Snackbar from 'react-native-snackbar';
 import {firebase} from '@react-native-firebase/database'
 import { firebase_db } from '../../database';
 import { createSlice } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
 
 
 export const signUp = async (data) =>  {
@@ -46,8 +47,9 @@ export const signIN = (data) => {
     const {email, password} = data
 
     auth().signInWithEmailAndPassword(email, password)
-    .then(()=>{
-        console.log("Sign in success");
+    .then((data)=>{
+        
+        console.log("Sign in success", data);
         Snackbar.show({
             text:"Account signin",
             textColor:"white",

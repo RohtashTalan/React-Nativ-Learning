@@ -51,9 +51,9 @@ const Index = () => {
   },[]);
 
 
-  if (authState.loading) {
-    return <EmptyContainer />;
-  }
+  // if (authState.loading) {
+  //   return <EmptyContainer />;
+  // }
 
   return (
     <>

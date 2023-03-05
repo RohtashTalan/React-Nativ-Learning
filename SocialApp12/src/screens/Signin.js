@@ -15,6 +15,7 @@ import {
   Image,
   Avatar,
   Button,
+  Center,
 } from 'native-base';
 
 
@@ -22,7 +23,6 @@ import { useSelector } from 'react-redux';
 import { signIN } from '../store/slices/auth';
 import propTypes from "prop-types"
 
-// import welcome from '../assests/undraw_Cat.png'
 
 
 
@@ -40,66 +40,63 @@ const Signin = ({navigation}) => {
 
 
   return (
-    <ScrollView contentContainerStyle={{flexGrow: 1}}>
-      <Text style={styles.heading}>Welcome to the Travel-gram Social App</Text>
-
-      {/* <Image
-        source={Welcome}
-        style={{width: null, height: 150, marginTop: 30}}
-        resizeMode="contain"
-      /> */}
-
-      <FormControl>
-        <Stack space={5}>
-          <Stack>
-            <Input
-              placeholder="enter your registerd email"
-              value={email}
-              style={{color: '#eee'}}
-              onChangeText={text => setEmail(text)}
+    <>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          paddingHorizontal: 10,
+          paddingBottom: 30,
+          backgroundColor: '#1b262c',
+        }}>
+          <View>
+            <Image
+              resizeMode="contain"
+              source={{
+                uri: 'https://i.ibb.co/3Shrsr9/undraw-welcome-cats-thqn.png',
+              }}
+              alt="Alternate Text"
+              style={{flex:1, width:'100%', height:200, marginVertical:8}}
+              mb="6"
             />
-          </Stack>
-          <Stack>
-            <Input
-              placeholder="enter your registerd password"
-              value={password}
-              secureTextEntry={true}
-              style={{color: '#eee'}}
-              onChangeText={text => setPassword(text)}
-            />
-          </Stack>
+        </View>
 
-          <Button rounded block onPress={doSignIn}>
-            <Text>SignIn</Text>
-          </Button>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('SignUp')}
-            style={{marginTop: 10}}>
-            <Text style={{color: '#fff', textAlign: 'center'}}>
-              Do not have an account, SignUp here
-            </Text>
-          </TouchableOpacity>
-        </Stack>
-      </FormControl>
-    </ScrollView>
+        <FormControl>
+          <Stack space={5}>
+            <Stack>
+              <Input
+                placeholder="email"
+                value={email}
+                style={{color: '#eee'}}
+                onChangeText={text => setEmail(text)}
+              />
+            </Stack>
+
+            <Stack>
+              <Input
+                placeholder="password"
+                value={password}
+                style={{color: '#eee'}}
+                onChangeText={text => setPassword(text)}
+              />
+            </Stack>
+
+            <Button regular block onPress={() => doSignIn()}>
+              <Text>Sign In</Text>
+            </Button>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Signup')}
+              style={{marginTop: 10}}>
+              <Text style={{color: '#fff', textAlign: 'center'}}>
+                Do not have an account, SignUp here
+              </Text>
+            </TouchableOpacity>
+          </Stack>
+        </FormControl>
+      </ScrollView>
+    </>
   );
 };
 
 export default Signin;
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#1b262c',
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
-  heading: {
-    textAlign: 'center',
-    color: '#fdcb9e',
-    marginHorizontal: 5,
-    marginTop: 30,
-  },
-  formItem: {
-    marginBottom: 20,
-  },
-});
+

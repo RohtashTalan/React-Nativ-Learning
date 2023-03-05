@@ -69,9 +69,9 @@ const Index = () => {
               <Stack.Screen name="AddPost" component={AddPost} />
             </>
           ) : (
-            <>
+            <> 
+             <Stack.Screen name="Signin" component={Signin} />
               <Stack.Screen name="Signup" component={Signup} />
-              <Stack.Screen name="Signin" component={Signin} />
             </>
           )}
         </Stack.Navigator> 

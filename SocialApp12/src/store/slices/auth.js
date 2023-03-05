@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
-import database from '@react-native-firebase/database'
+import {firebase} from '@react-native-firebase/database'
 import { firebase_db } from '../../database';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -12,7 +12,7 @@ export const signUp = async (data) =>  {
     .then((data) => {
         console.log(data);
 
-        database()
+        firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
         .ref('/users/'+data.user.uid)
         .set({
             name,

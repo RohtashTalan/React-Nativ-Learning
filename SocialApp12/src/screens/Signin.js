@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { signIN } from '../store/slices/auth';
 import propTypes from "prop-types"
 
+// import welcome from '../assests/undraw_Cat.png'
 
 
 
@@ -42,11 +43,11 @@ const Signin = ({navigation}) => {
     <ScrollView contentContainerStyle={{flexGrow: 1}}>
       <Text style={styles.heading}>Welcome to the Travel-gram Social App</Text>
 
-      <Image
+      {/* <Image
         source={Welcome}
         style={{width: null, height: 150, marginTop: 30}}
         resizeMode="contain"
-      />
+      /> */}
 
       <FormControl>
         <Stack space={5}>

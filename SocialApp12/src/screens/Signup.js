@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, ToastAndroid} from 'react-native';
 import React, { useState } from 'react';
 import {Container, ScrollView, Input, Stack, FormControl, Image, Avatar, Button} from 'native-base';
 
@@ -11,7 +11,6 @@ import {options} from '../utils/options'
 import propTypes from 'prop-types'
 import { signUp } from '../store/slices/auth';
 import {connect} from 'react-redux';
-import { ToastAndroid } from 'react-native';
 
 
 

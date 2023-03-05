@@ -7,7 +7,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export const signUp = async (data) =>  {
     const {name, instaUserName, bio, email, password, country, image} = data
-    console.log("signup...dat...", data);
+    
     auth().createUserWithEmailAndPassword(email, password)
     .then((data) => {
         console.log(data);
@@ -41,7 +41,7 @@ export const signUp = async (data) =>  {
     })
 }
 
-export const signIN = (data) => async(dispatch) => {
+export const signIN = (data) => {
    
     const {email, password} = data
 
@@ -64,7 +64,7 @@ export const signIN = (data) => async(dispatch) => {
     })
 }
 
-export const signOut = () => async(dispatch) => {
+export const signOut = () => {
 
     auth()
     .signOut()

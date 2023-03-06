@@ -7,11 +7,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const signUp = createAsyncThunk("authState/signUP" , async (data) =>  {
     const {name, instaUserName, bio, email, password, country, image} = data
-    
-    auth().createUserWithEmailAndPassword(email, password)
-    .then((data) => {
-        firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
-        .ref('/users/'+data.user.uid)
+
+
+    try {
+        const response = await auth().createUserWithEmailAndPassword(email, password);
+        const data =  firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
+        .ref('/users/'+response.user.uid)
         .set({
             name,
             instaUserName,
@@ -20,56 +21,68 @@ export const signUp = createAsyncThunk("authState/signUP" , async (data) =>  {
             bio,
             uid: data.user.uid
         })
-        .then(()=> console.log("Data set Success"))
-
+        
         Snackbar.show({
             text:"Account created",
             textColor:"white",
             backgroundColor:"#1b262c"
         })
 
-        return data
+        return data.user.uid
 
-    })
-    .catch((error)=>{
-        console.error(error);
+    } catch (error) {
         Snackbar.show({
             text: "Signup failed",
             textColor: "White",
             backgroundColor: "red"
         })
-    })
+    }
+    
+   
 }) 
 
 export const signIN = createAsyncThunk("authState/signIN" , async (data) => {
    
     const {email, password} = data
 
-   const response = await auth().signInWithEmailAndPassword(email, password)
-   console.log("Sign in success", response);
-       return response.user
-})
+    try {
+        const response = await auth().signInWithEmailAndPassword(email, password)
+         return response.user.uid
+    } catch (error) {
+            Snackbar.show({
+                text: "Signup failed",
+                textColor: "White",
+                backgroundColor: "red"
+            })
+        }
+    }
+   )
 
-export const signOut = createAsyncThunk("authState/signOut" ,() => {
+export const signOut = createAsyncThunk("authState/signOut" , async() => {
 
-    auth()
-    .signOut()
-    .then(()=>{
-        console.log("signout success");
+    try {
+        
+        const response = await auth().signOut();
+
         Snackbar.show({
             text:"SignOut Successful",
             textColor:"white",
             backgroundColor:"#1b2b2c"
         })
-    })
-    .catch((error)=>{
-        console.error(error);
+
+        console.log("signout...", response);
+
+        return response
+    } catch (error) {
+        
         Snackbar.show({
             text: "SignOut failed",
             textColor:"white",
             backgroundColor:"red"
         })
-    })
+    }
+
+    
 
 
 

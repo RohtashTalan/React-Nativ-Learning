@@ -2,7 +2,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import auth from '@react-native-firebase/auth';
-import database from '@react-native-firebase/database';
+import {firebase} from '@react-native-firebase/database';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -30,12 +30,11 @@ const Index = () => {
   const onAuthStateChanged = user => {
     if (user) {
       dispatch(IS_AUTHENTICATED(true));
-      console.log(user);
 
-      database(firebase_db)
+      firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
         .ref(`/user/${user._user.id}`)
         .on('value', snapshot => {
-          console.log('USER DETAILS', sna.val());
+          console.log('USER DETAILS', snapshot.val());
           dispatch(SET_USER(snapshot.val()));
         });
     } else {
@@ -51,6 +50,7 @@ const Index = () => {
   },[]);
 
 
+  console.log(".....auth state...", authState);
   // if (authState.loading) {
   //   return <EmptyContainer />;
   // }

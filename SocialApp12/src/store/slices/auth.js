@@ -5,7 +5,7 @@ import { firebase_db } from '../../database';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 
-export const signUp = createAsyncThunk("authState/signUP" , (data) =>  {
+export const signUp = createAsyncThunk("authState/signUP" , async (data) =>  {
     const {name, instaUserName, bio, email, password, country, image} = data
     
     auth().createUserWithEmailAndPassword(email, password)
@@ -41,31 +41,16 @@ export const signUp = createAsyncThunk("authState/signUP" , (data) =>  {
     })
 }) 
 
-export const signIN = (data) => {
+export const signIN = createAsyncThunk("authState/signIN" , async (data) => {
    
     const {email, password} = data
 
-    auth().signInWithEmailAndPassword(email, password)
-    .then((data)=>{
-        
-        console.log("Sign in success", data);
-        Snackbar.show({
-            text:"Account signin",
-            textColor:"white",
-            backgroundColor:"#1b2b2c"
-        })
-    })
-    .catch((error)=>{
-        console.error(error);
-        Snackbar.show({
-            text: "Signin failed",
-            textColor:"white",
-            backgroundColor:"red"
-        })
-    })
-}
+   const response = await auth().signInWithEmailAndPassword(email, password)
+   console.log("Sign in success", response);
+       return response.user
+})
 
-export const signOut = () => {
+export const signOut = createAsyncThunk("authState/signOut" ,() => {
 
     auth()
     .signOut()
@@ -88,7 +73,7 @@ export const signOut = () => {
 
 
 
-}
+})
 
 
 const initialState = {
@@ -117,6 +102,24 @@ const authState = createSlice({
             }
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(signUp.fulfilled, (state, action) => {
+          state.user = action.payload
+          state.loading = false;
+          state.isAuthenticated = true
+        })
+        .addCase(signIN.fulfilled, (state, action) => {
+            console.log("signin reducer...", action);
+            state.user = action.payload
+            state.loading = false;
+            state.isAuthenticated = true
+        })
+        .addCase(signOut.fulfilled, (state, action) => {
+            state.user = action.payload
+            state.loading = false;
+            state.isAuthenticated = false
+        })
+      },
 })
 
 

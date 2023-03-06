@@ -1,11 +1,11 @@
-import database from "@react-native-firebase/database";
+import {firebase} from "@react-native-firebase/database";
 import { firebase_db } from "../../database";
 import { createSlice } from '@reduxjs/toolkit';
 
 export const getPosts = () => async(dispatch) => {
 
     try {
-        database(firebase_db)
+        firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
         .ref('/posts/')
         .on('value', (snapshot) => {
             console.log('User Data: ', snapshot.val());

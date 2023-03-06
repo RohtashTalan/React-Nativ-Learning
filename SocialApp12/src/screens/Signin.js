@@ -19,7 +19,7 @@ import {
 } from 'native-base';
 
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signIN } from '../store/slices/auth';
 import propTypes from "prop-types"
 
@@ -30,11 +30,11 @@ import propTypes from "prop-types"
 const Signin = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
+  const dispatch  = useDispatch()
 
 
   const doSignIn = () => {
-
-    signIN({email, password})
+    dispatch(signIN({email, password}))
   }
 
 

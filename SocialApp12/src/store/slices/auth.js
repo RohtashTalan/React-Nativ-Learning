@@ -2,17 +2,14 @@ import auth from '@react-native-firebase/auth';
 import Snackbar from 'react-native-snackbar';
 import {firebase} from '@react-native-firebase/database'
 import { firebase_db } from '../../database';
-import { createSlice } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 
-export const signUp = async (data) =>  {
+export const signUp = createAsyncThunk("authState/signUP" , (data) =>  {
     const {name, instaUserName, bio, email, password, country, image} = data
     
     auth().createUserWithEmailAndPassword(email, password)
     .then((data) => {
-        console.log(data);
-
         firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
         .ref('/users/'+data.user.uid)
         .set({
@@ -31,6 +28,8 @@ export const signUp = async (data) =>  {
             backgroundColor:"#1b262c"
         })
 
+        return data
+
     })
     .catch((error)=>{
         console.error(error);
@@ -40,7 +39,7 @@ export const signUp = async (data) =>  {
             backgroundColor: "red"
         })
     })
-}
+}) 
 
 export const signIN = (data) => {
    

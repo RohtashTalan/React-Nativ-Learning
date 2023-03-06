@@ -10,12 +10,13 @@ import {options} from '../utils/options'
 
 import propTypes from 'prop-types'
 import { signUp } from '../store/slices/auth';
-import {connect} from 'react-redux';
+import {connect, useDispatch} from 'react-redux';
 
 
 
 
 const Signup = () => {
+  const dispatch  = useDispatch();
     const [image, setImage] = useState('https://git-scm.com/images/logos/logomark-orange@2x.png');
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -64,7 +65,7 @@ const Signup = () => {
 
 
     const doSignUp = () => {
-      signUp({image, name, email, password, bio, country, instaUserName});
+      dispatch(signUp({image, name, email, password, bio, country, instaUserName}));
      
     }
     

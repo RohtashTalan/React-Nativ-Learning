@@ -63,7 +63,7 @@ const Index = () => {
             header: props => <CustomHeader {...props} 
           />,
           }}>
-          {authState.IS_AUTHENTICATED ? (
+          {authState.isAuthenticated ? (
             <>
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="AddPost" component={AddPost} />

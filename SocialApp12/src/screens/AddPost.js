@@ -13,12 +13,16 @@ import {
 
 
 import storage from '@react-native-firebase/storage';
+import {firebase} from '@react-native-firebase/database';
 
 import ProgressBar from  'react-native-progress/Bar';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {options} from '../utils/options'
 
 import {useDispatch} from 'react-redux';
+import shortid from 'shortid';
+import Snackbar from 'react-native-snackbar';
+import { authState } from '../store/slices/auth';
 
 const AddPost = ({navigation}) => {
   const dispatch  = useDispatch();
@@ -63,8 +67,41 @@ const AddPost = ({navigation}) => {
       })
     }
 
-    const addPost = () => {
+    const addPost = async() => {
+      try {
+        
+        if(!location || !description || !image){
+          return Snackbar.show({
+            text:"Please add fields",
+            textColor:"white",
+            backgroundColor:"red"
+          })
+        }
+        const uid = shortid.generate();
 
+         const data = await firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
+        .ref('/posts/'+uid)
+        .set({
+            location,
+            description,
+            picture:image,
+            by: authState.user.name,
+            date: Date.now(),
+            instaId: authState.instaUserName,
+            userImage: authState.image
+        });
+
+        console.log("post added success");
+        navigation.navigate("Home")
+
+      } catch (error) {
+        console.log("add post screen...", error);
+        Snackbar.show({
+          text:"Post upload faild",
+          textColor:"white",
+          backgroundColor:"red"
+        })
+      }
     }
 
   return (

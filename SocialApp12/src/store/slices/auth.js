@@ -47,7 +47,7 @@ export const signIN = createAsyncThunk("authState/signIN" , async (data) => {
 
     try {
         const response = await auth().signInWithEmailAndPassword(email, password)
-         return response.user.uid
+         return response.user
     } catch (error) {
             Snackbar.show({
                 text: "Signup failed",

@@ -1,8 +1,8 @@
 import {firebase} from "@react-native-firebase/database";
 import { firebase_db } from "../../database";
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getPosts = () => async(dispatch) => {
+export const getPosts = createAsyncThunk("/getPosts/", async() => {
 
     try {
         firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
@@ -10,14 +10,9 @@ export const getPosts = () => async(dispatch) => {
         .on('value', (snapshot) => {
             console.log('User Data: ', snapshot.val());
             if(snapshot.val()){
-                dispatch({
-                    type:SET_POST,
-                    payload: Object.values(snapshot.val())
-                })
+                return snapshot.val()
             }else{
-                dispatch({
-                    type:ERROR_POST
-                })
+               console.log("NO Value ");
             }
 
         })
@@ -26,7 +21,7 @@ export const getPosts = () => async(dispatch) => {
         console.log(error);
 
     }
-}
+})
 
 
 
@@ -57,6 +52,13 @@ const postState = createSlice({
             }
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(getPosts.fulfilled, (state, action) => {
+          state.posts = action.payload
+          state.loading = false;
+          state.isAuthenticated = true
+        })
+      },
 })
 
 

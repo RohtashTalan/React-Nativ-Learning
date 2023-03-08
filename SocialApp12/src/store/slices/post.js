@@ -5,7 +5,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 export const getPosts = createAsyncThunk("/getPosts/", async() => {
 
     try {
-        firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
+        await firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
         .ref('/posts/')
         .on('value', (snapshot) => {
             console.log('User Data: ', snapshot.val());

@@ -19,7 +19,7 @@ const Post = ({item, userDetails}) => {
       </HStack>
 
       <VStack space={3}>
-      <Image width={200} size={"2xl"} source={{
+      <Image size={"380"} source={{
           uri: item.picture
         }} alt={"Alternate Text "} />
         <Text  color={"#fff"}>{item.description}</Text>

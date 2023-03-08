@@ -28,11 +28,11 @@ const Index = () => {
   const authState = useSelector(state => state.authState);
 
   const onAuthStateChanged = user => {
-    if (user) {
+    if (authState.user) {
       dispatch(IS_AUTHENTICATED(true));
 
-      firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
-        .ref(`/user/${user._user.id}`)
+      firebase.app().database(firebase_db)
+        .ref(`/users/${user._user.id}`)
         .on('value', snapshot => {
           console.log('USER DETAILS', snapshot.val());
           dispatch(SET_USER(snapshot.val()));
@@ -45,12 +45,9 @@ const Index = () => {
 
   useEffect(() => {
     askPermission();
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
   },[]);
 
 
-  console.log(".....auth state...", authState);
   // if (authState.loading) {
   //   return <EmptyContainer />;
   // }

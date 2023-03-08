@@ -32,9 +32,22 @@ useEffect(()=>{
 
 
   return (
-    <View>
-      <Text>Home screen</Text>
-    </View>
+    <SafeAreaView>
+      <FlatList 
+      data={postState.posts}
+      keyExtractor={(item) => item.postId}
+      renderItem={({item, index, separators}) =>(
+        <Post item={item} userDetails={authState.user} key={item.postId} />
+      ) }
+      ListEmptyComponent={()=>(
+        <Text size="2xl">No Post found</Text>
+      )}
+      >
+
+      </FlatList>
+
+
+    </SafeAreaView>
   )
 }
 

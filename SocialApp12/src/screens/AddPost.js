@@ -19,14 +19,14 @@ import ProgressBar from  'react-native-progress/Bar';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {options} from '../utils/options'
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import shortid from 'shortid';
 import Snackbar from 'react-native-snackbar';
-import { authState } from '../store/slices/auth';
 import { firebase_db } from '../database';
 
 const AddPost = ({navigation}) => {
   const dispatch  = useDispatch();
+  const authState = useSelector((state)=> state.authState);
     const [image, setImage] = useState('https://git-scm.com/images/logos/logomark-orange@2x.png');
     const [location, setLocation] = useState('')
     const [description, setDescription] = useState('')
@@ -87,8 +87,9 @@ const AddPost = ({navigation}) => {
             description,
             picture:image,
             date: Date.now(),
-            instaId: authState.instaUserName,
-            userImage: authState.image
+            by: authState.user.name,
+            instaId: authState.user.instaUserName,
+            userImage: authState.user.image
         });
 
         console.log("post added success");

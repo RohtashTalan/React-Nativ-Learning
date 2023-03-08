@@ -23,6 +23,7 @@ import {useDispatch} from 'react-redux';
 import shortid from 'shortid';
 import Snackbar from 'react-native-snackbar';
 import { authState } from '../store/slices/auth';
+import { firebase_db } from '../database';
 
 const AddPost = ({navigation}) => {
   const dispatch  = useDispatch();
@@ -79,13 +80,12 @@ const AddPost = ({navigation}) => {
         }
         const uid = shortid.generate();
 
-         const data = await firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
+         const data = await firebase.app().database(firebase_db)
         .ref('/posts/'+uid)
         .set({
             location,
             description,
             picture:image,
-            by: authState.user.name,
             date: Date.now(),
             instaId: authState.instaUserName,
             userImage: authState.image

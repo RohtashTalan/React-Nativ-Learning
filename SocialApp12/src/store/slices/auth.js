@@ -11,7 +11,7 @@ export const signUp = createAsyncThunk("authState/signUP" , async (data) =>  {
 
     try {
         const response = await auth().createUserWithEmailAndPassword(email, password);
-        const data =  firebase.app().database('https://instatest-f9323-default-rtdb.asia-southeast1.firebasedatabase.app')
+        const data =  firebase.app().database(firebase_db)
         .ref('/users/'+response.user.uid)
         .set({
             name,
@@ -46,8 +46,12 @@ export const signIN = createAsyncThunk("authState/signIN" , async (data) => {
     const {email, password} = data
 
     try {
-        const response = await auth().signInWithEmailAndPassword(email, password)
-         return response.user
+        const response = await auth().signInWithEmailAndPassword(email, password);
+
+        const eventref = firebase.app().database(firebase_db).ref('/users/'+response.user.uid);
+        const snapshot = await eventref.once('value');
+        const value = snapshot.val();
+         return value
     } catch (error) {
             Snackbar.show({
                 text: "Signup failed",
@@ -70,8 +74,6 @@ export const signOut = createAsyncThunk("authState/signOut" , async() => {
             backgroundColor:"#1b2b2c"
         })
 
-        console.log("signout...", response);
-
         return response
     } catch (error) {
         
@@ -87,7 +89,6 @@ export const signOut = createAsyncThunk("authState/signOut" , async() => {
 
 
 })
-
 
 const initialState = {
     user: null,
@@ -122,13 +123,12 @@ const authState = createSlice({
           state.isAuthenticated = true
         })
         .addCase(signIN.fulfilled, (state, action) => {
-            console.log("signin reducer...", action);
             state.user = action.payload
             state.loading = false;
             state.isAuthenticated = true
         })
         .addCase(signOut.fulfilled, (state, action) => {
-            state.user = action.payload
+            state.user = null
             state.loading = false;
             state.isAuthenticated = false
         })

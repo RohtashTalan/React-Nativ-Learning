@@ -8,6 +8,10 @@ const store = configureStore({
         authState:authState.reducer,
         postState:postState.reducer
     },
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
     
 })
 

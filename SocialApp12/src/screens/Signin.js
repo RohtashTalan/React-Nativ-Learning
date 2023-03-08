@@ -52,7 +52,7 @@ const Signin = ({navigation}) => {
             <Image
               resizeMode="contain"
               source={{
-                uri: 'https://i.ibb.co/3Shrsr9/undraw-welcome-cats-thqn.png',
+                uri: 'https://cdn.jsdelivr.net/gh/RohtashTalan/React-Nativ-Learning@master/SocialApp12/src/assests/undraw_welcome_cats.png',
               }}
               alt="Alternate Text"
               style={{flex:1, width:'100%', height:200, marginVertical:8}}
